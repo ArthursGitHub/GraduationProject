@@ -4,8 +4,36 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>GraduationProject</groupId>
-    <artifactId>GraduationProject</artifactId>
+    <groupId>ru.graduate</groupId>
+    <artifactId>graduation-project</artifactId>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <name>TopJava graduation project</name>
+    <url>https://github.com/ArthursGitHub/GraduationProject</url>
+
+    <properties>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.0.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+
+    </dependencies>
+
 
 </project>
