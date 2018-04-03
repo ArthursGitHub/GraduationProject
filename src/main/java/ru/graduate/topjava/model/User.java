@@ -39,39 +39,37 @@ public class User extends AbstractNamedEntity {
     @NotNull
     private Date registered = new Date();*/
 
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+  @Enumerated(EnumType.STRING)
+  @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+  @Column(name = "role")
+  @ElementCollection(fetch = FetchType.EAGER)
+  private Set<Role> roles;
 
 //    @Column(name = "calories_per_day", columnDefinition = "int default 2000")
 //    @Range(min = 10, max = 10000)
 //    private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
 
-    public User() {
-    }
+  public User() {
+  }
 
-    public User(User u) {
+  public User(User u) {
 //        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getCaloriesPerDay(), u.isEnabled(), u.getRegistered(), u.getRoles());
-    }
+  }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-    public void setRoles(Collection<Role> roles) {
-        Set<Object> objects = Collections.emptySet();
-        EnumSet<Role> roles1 = EnumSet.copyOf(roles);
-        Set<?> objects1 = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
-        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
-    }
+  public Set<Role> getRoles() {
+    return roles;
+  }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name=" + name +
-                ", roles=" + roles +
-                '}';
-    }
+  public void setRoles(Collection<Role> roles) {
+    this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "id=" + id +
+            ", name=" + name +
+            ", roles=" + roles +
+            '}';
+  }
 }
