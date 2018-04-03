@@ -1,82 +1,62 @@
-package ru.javawebinar.topjava.model;
+package ru.graduate.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class Meal extends AbstractBaseEntity {
-    private LocalDateTime dateTime;
+public class Meal extends AbstractNamedEntity {
+  private LocalDateTime dateTime;
+  private int price;
+  private Cafe cafe;
 
-    private String description;
+  public Meal() {
+  }
 
-    private int calories;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
-
-    public Meal() {
+/*    public Meal(LocalDateTime dateTime, String description, int price) {
+        this(null, dateTime, description, price);
     }
 
-    public Meal(LocalDateTime dateTime, String description, int calories) {
-        this(null, dateTime, description, calories);
-    }
-
-    public Meal(Integer id, LocalDateTime dateTime, String description, int calories) {
+    public Meal(Integer id, LocalDateTime dateTime, String description, int price) {
         super(id);
         this.dateTime = dateTime;
         this.description = description;
-        this.calories = calories;
-    }
+        this.price = price;
+    }*/
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
+  public LocalDateTime getDateTime() {
+    return dateTime;
+  }
+  public void setDateTime(LocalDateTime dateTime) {
+    this.dateTime = dateTime;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public LocalDate getDate() {
+    return dateTime.toLocalDate();
+  }
+  public LocalTime getTime() {
+    return dateTime.toLocalTime();
+  }
 
-    public int getCalories() {
-        return calories;
-    }
+  public int getPrice() {
+    return price;
+  }
+  public void setPrice(int price) {
+    this.price = price;
+  }
 
-    public LocalDate getDate() {
-        return dateTime.toLocalDate();
-    }
+  public Cafe getCafe() {
+    return cafe;
+  }
+  public void setCafe(Cafe cafe) {
+    this.cafe = cafe;
+  }
 
-    public LocalTime getTime() {
-        return dateTime.toLocalTime();
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setCalories(int calories) {
-        this.calories = calories;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Meal{" +
-                "id=" + id +
-                ", dateTime=" + dateTime +
-                ", description='" + description + '\'' +
-                ", calories=" + calories +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "Meal{" +
+            "id=" + id +
+            ", dateTime=" + dateTime +
+            ", price=" + price +
+            '}';
+  }
 }
