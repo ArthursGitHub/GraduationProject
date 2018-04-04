@@ -1,3 +1,4 @@
+/*
 DROP TABLE user_roles IF EXISTS;
 DROP TABLE meals IF EXISTS;
 DROP TABLE users IF EXISTS;
@@ -35,3 +36,4 @@ CREATE TABLE meals
   FOREIGN KEY (user_id) REFERENCES USERS (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX meals_unique_user_datetime_idx ON meals (user_id, date_time)
+*/

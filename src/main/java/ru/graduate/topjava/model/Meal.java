@@ -1,13 +1,20 @@
 package ru.graduate.topjava.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@Entity
+@Table(name = "meals")
 public class Meal extends AbstractNamedEntity {
+
+  @Column(name = "date_time")
   private LocalDateTime dateTime;
   private int price;
-  private Cafe cafe;
+//  private Cafe cafe;
 
   public Meal() {
   }
@@ -44,19 +51,21 @@ public class Meal extends AbstractNamedEntity {
     this.price = price;
   }
 
-  public Cafe getCafe() {
+/*  public Cafe getCafe() {
     return cafe;
   }
   public void setCafe(Cafe cafe) {
     this.cafe = cafe;
-  }
+  }*/
 
   @Override
   public String toString() {
     return "Meal{" +
-            "id=" + id +
-            ", dateTime=" + dateTime +
-            ", price=" + price +
-            '}';
+            "\nid = " + id +
+            "\nname = " + name +
+            "\nprice = " + price +
+            "\ndateTime = " + dateTime +
+            "\nprice = " + price +
+            "\n}";
   }
 }
