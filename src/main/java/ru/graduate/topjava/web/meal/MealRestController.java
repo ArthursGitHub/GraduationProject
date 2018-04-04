@@ -11,7 +11,6 @@ import ru.graduate.topjava.service.MealService;
 import static ru.graduate.topjava.util.ValidationUtil.assureIdConsistent;
 import static ru.graduate.topjava.util.ValidationUtil.checkNew;
 
-
 @Controller
 public class MealRestController {
   private static final Logger log = LoggerFactory.getLogger(MealRestController.class);
@@ -26,7 +25,7 @@ public class MealRestController {
   public Meal get(int id) {
     int userId = AuthorizedUser.id();
     log.info("get meal {} for user {}", id, userId);
-    return service.get(id, userId);
+    return service.get(id);
   }
 
   public void delete(int id) {
