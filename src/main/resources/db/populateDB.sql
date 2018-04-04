@@ -1,6 +1,7 @@
 
 -- DELETE FROM user_roles;
 DELETE FROM meals;
+DELETE FROM cafe;
 -- DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 /*
@@ -22,3 +23,7 @@ INSERT INTO meals (date_time, name, price, cafe_id) VALUES
   ('2015-06-01 00:00:00', 'Макароны', 80, 100001),
   ('2015-06-01 00:00:00', 'Хлеб', 5, 100001);
 
+INSERT INTO cafe (name) VALUES
+  ('Взлет'),
+  ('Звездочка'),
+  ('Молодежное');

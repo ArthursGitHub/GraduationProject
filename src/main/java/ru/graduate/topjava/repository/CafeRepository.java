@@ -1,20 +1,20 @@
 package ru.graduate.topjava.repository;
 
-import ru.graduate.topjava.model.Meal;
+import ru.graduate.topjava.model.Cafe;
 
 import java.util.List;
 
-public interface MealRepository {
+public interface CafeRepository {
   // null if updated meal do not belong to userId
-  Meal save(Meal meal, int userId);
+  Cafe save(Cafe meal, int userId);
 
   // false if meal do not belong to userId
   boolean delete(int id, int userId);
 
   // null if meal do not belong to userId
-  Meal get(int id);
+  Cafe get(int id);
 
   // ORDERED dateTime desc
-  List<Meal> getAll(int userId);
+  List<Cafe> getAll(int userId);
 
 }

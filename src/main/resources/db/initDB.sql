@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS meals;
 DROP TABLE IF EXISTS users;
+
+
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START 100000;
@@ -13,6 +15,12 @@ CREATE TABLE meals
   date_time   TIMESTAMP NOT NULL,
   cafe_id     INTEGER   NOT NULL
 );
+
+/*CREATE TABLE cafe
+(
+  id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  name             VARCHAR                 NOT NULL
+);*/
 /*
 
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
