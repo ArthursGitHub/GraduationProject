@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS meals;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS cafe;
+DROP TABLE IF EXISTS vote;
 
 DROP SEQUENCE IF EXISTS global_seq;
 
@@ -36,6 +37,14 @@ CREATE TABLE user_roles
   role    VARCHAR,
   CONSTRAINT user_roles_idx UNIQUE (user_id, role)
 --   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE TABLE vote
+(
+  id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  user_id     INTEGER   NOT NULL,
+  cafe_id     INTEGER   NOT NULL,
+  date_time   TIMESTAMP NOT NULL
 );
 
 /*

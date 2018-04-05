@@ -1,10 +1,19 @@
 package ru.graduate.topjava.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
 public class Vote extends AbstractBaseEntity {
+  @Column(name = "date_time")
   private LocalDateTime dateTime;
+
+  @OneToOne(fetch= FetchType.LAZY)
+  @JoinColumn(name="cafe_id")
   private Cafe cafe;
+
+  @OneToOne(fetch= FetchType.LAZY)
+  @JoinColumn(name="user_id")
   private User user;
 
 
@@ -27,5 +36,15 @@ public class Vote extends AbstractBaseEntity {
   }
   public void setUser(User user) {
     this.user = user;
+  }
+
+  @Override
+  public String toString() {
+    return "Vote{" +
+            "id=" + id +
+            ", cafe=" + cafe +
+            ", user=" + user +
+            ", dateTime=" + dateTime +
+            '}';
   }
 }
