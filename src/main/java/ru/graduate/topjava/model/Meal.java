@@ -6,10 +6,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@NamedQueries({
+        @NamedQuery(name = Meal.MEAL_WITH_CAFE, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.cafe WHERE m.id=:mealId ")
+})
+
 @Entity
 @Table(name = "meals")
 public class Meal extends AbstractNamedEntity {
 
+  public static final String MEAL_WITH_CAFE = "Meal.getMealWithCafe";
   @Column(name = "date_time")
   private LocalDateTime dateTime;
   private int price;
@@ -21,17 +26,6 @@ public class Meal extends AbstractNamedEntity {
 
   public Meal() {
   }
-
-/*    public Meal(LocalDateTime dateTime, String description, int price) {
-        this(null, dateTime, description, price);
-    }
-
-    public Meal(Integer id, LocalDateTime dateTime, String description, int price) {
-        super(id);
-        this.dateTime = dateTime;
-        this.description = description;
-        this.price = price;
-    }*/
 
   public LocalDateTime getDateTime() {
     return dateTime;
@@ -68,8 +62,7 @@ public class Meal extends AbstractNamedEntity {
             "\nname = " + name +
             "\nprice = " + price +
             "\ndateTime = " + dateTime +
-            "\nprice = " + price +
-            "\ncafe = " + cafe +
+            "\ncafe = " + getCafe() +
             "\n}";
   }
 }

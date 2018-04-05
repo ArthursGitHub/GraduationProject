@@ -19,7 +19,6 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class CafeServiceImplTest {
-
   static {
     SLF4JBridgeHandler.install();
   }

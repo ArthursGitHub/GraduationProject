@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.graduate.topjava.model.Meal;
+import ru.graduate.topjava.model.User;
 
 import static org.junit.Assert.*;
 
@@ -18,19 +18,18 @@ import static org.junit.Assert.*;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class MealServiceImplTest {
+public class UserServiceImplTest {
   static {
     SLF4JBridgeHandler.install();
   }
 
   @Autowired
-  private MealService service;
+  protected UserService service;
 
 
   @Test
   public void get() {
-    Meal meal = service.get(100000);
-    System.out.println(meal);
-    System.out.println("********************");
+    User user = service.get(100001);
+    System.out.println(user);
   }
 }

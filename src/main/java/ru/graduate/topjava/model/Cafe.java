@@ -7,4 +7,11 @@ import javax.persistence.Table;
 @Table(name = "cafe")
 public class Cafe extends AbstractNamedEntity {
 
+  @Override
+  public String toString() {
+    return "Cafe {" +
+            "\nid = " + id +
+            "\nname = " + name +
+            "\n}";
+  }
 }

@@ -43,8 +43,8 @@ public class JpaCafeRepositoryImpl implements CafeRepository {
 
   @Override
   public Cafe get(int id) {
-    Cafe meal = em.find(Cafe.class, id);
-    return meal;
+    Cafe cafe = em.find(Cafe.class, id);
+    return cafe;
   }
 
   @Override
