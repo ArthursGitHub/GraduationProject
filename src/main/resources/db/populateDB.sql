@@ -1,16 +1,19 @@
-
-DELETE FROM user_roles;
 DELETE FROM cafe;
-DELETE FROM meals;
 DELETE FROM users;
+DELETE FROM user_roles;
+DELETE FROM meals;
 DELETE FROM vote;
 
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
+INSERT INTO cafe (name) VALUES
+  ('Взлет'),
+  ('Звездочка'),
+  ('Молодежное');
+
 INSERT INTO users (name) VALUES
   ('User'),
   ('Admin');
-
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
@@ -25,11 +28,6 @@ INSERT INTO meals (date_time, name, price, cafe_id) VALUES
   ('2015-05-31 00:00:00', 'Сок', 60, 100009),
   ('2015-06-01 00:00:00', 'Макароны', 80, 100009),
   ('2015-06-01 00:00:00', 'Хлеб', 5, 100009);
-
-INSERT INTO cafe (name) VALUES
-  ('Взлет'),
-  ('Звездочка'),
-  ('Молодежное');
 
 INSERT INTO vote (user_id, cafe_id, date_time) VALUES
   (100000, 100011, '2015-05-31 00:00:00');

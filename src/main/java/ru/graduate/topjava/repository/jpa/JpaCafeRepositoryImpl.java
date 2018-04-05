@@ -18,40 +18,30 @@ public class JpaCafeRepositoryImpl implements CafeRepository {
 
   @Override
   @Transactional
-  public Cafe save(Cafe meal, int userId) {
-    if (!meal.isNew() && get(meal.getId()) == null) {
-      return null;
-    }
-//    meal.setUser(em.getReference(User.class, userId));
-    if (meal.isNew()) {
-      em.persist(meal);
-      return meal;
+  public Cafe save(Cafe cafe) {
+    if (cafe.isNew()) {
+      em.persist(cafe);
+      return cafe;
     } else {
-      return em.merge(meal);
+      return em.merge(cafe);
     }
   }
 
   @Override
   @Transactional
-  public boolean delete(int id, int userId) {
-/*    return em.createNamedQuery(Cafe.DELETE)
+  public boolean delete(int id) {
+    return em.createNamedQuery(Cafe.DELETE)
             .setParameter("id", id)
-            .setParameter("userId", userId)
-            .executeUpdate() != 0;*/
-    return true;
+            .executeUpdate() != 0;
   }
 
   @Override
   public Cafe get(int id) {
-    Cafe cafe = em.find(Cafe.class, id);
-    return cafe;
+    return em.find(Cafe.class, id);
   }
 
   @Override
-  public List<Cafe> getAll(int userId) {
-/*    return em.createNamedQuery(Cafe.ALL_SORTED, Cafe.class)
-            .setParameter("userId", userId)
-            .getResultList();*/
-    return null;
+  public List<Cafe> getAll() {
+    return em.createNamedQuery(Cafe.ALL_SORTED, Cafe.class).getResultList();
   }
 }

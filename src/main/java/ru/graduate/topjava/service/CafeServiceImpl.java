@@ -12,7 +12,6 @@ import static ru.graduate.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class CafeServiceImpl implements CafeService {
-
   private final CafeRepository repository;
 
   @Autowired
@@ -26,23 +25,23 @@ public class CafeServiceImpl implements CafeService {
   }
 
   @Override
-  public void delete(int id, int userId) {
-    checkNotFoundWithId(repository.delete(id, userId), id);
+  public void delete(int id) {
+    checkNotFoundWithId(repository.delete(id), id);
   }
 
   @Override
-  public List<Cafe> getAll(int userId) {
-    return repository.getAll(userId);
+  public List<Cafe> getAll() {
+    return repository.getAll();
   }
 
   @Override
-  public Cafe update(Cafe meal, int userId) {
-    return checkNotFoundWithId(repository.save(meal, userId), meal.getId());
+  public Cafe update(Cafe cafe) {
+    return checkNotFoundWithId(repository.save(cafe), cafe.getId());
   }
 
   @Override
-  public Cafe create(Cafe meal, int userId) {
-    Assert.notNull(meal, "meal must not be null");
-    return repository.save(meal, userId);
+  public Cafe create(Cafe cafe) {
+    Assert.notNull(cafe, "cafe must not be null");
+    return repository.save(cafe);
   }
 }
