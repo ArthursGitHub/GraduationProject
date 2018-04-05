@@ -12,6 +12,7 @@ CREATE TABLE cafe
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name             VARCHAR                 NOT NULL
 );
+CREATE UNIQUE INDEX cafe_unique_name_idx ON cafe (name);
 
 CREATE TABLE users
 (
