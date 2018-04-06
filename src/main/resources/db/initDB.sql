@@ -19,6 +19,7 @@ CREATE TABLE users
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name             VARCHAR                 NOT NULL
 );
+CREATE UNIQUE INDEX user_unique_name_idx ON users (name);
 
 CREATE TABLE user_roles
 (

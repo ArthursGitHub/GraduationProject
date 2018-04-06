@@ -28,9 +28,17 @@ public class User extends AbstractNamedEntity {
   public User() {
   }
 
+  public User(User u) {
+    this(u.getId(), u.getName(), u.getRoles());
+  }
+
   public User(Integer id, String name, Role role, Role... roles) {
+    this(id, name, EnumSet.of(role, roles));
+  }
+
+  public User(Integer id, String name, Collection<Role> roles) {
     super(id, name);
-    setRoles(EnumSet.of(role, roles));
+    setRoles(roles);
   }
 
   public Set<Role> getRoles() {
