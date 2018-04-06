@@ -32,7 +32,6 @@ public class CafeServiceImplTest extends AbstractServiceTest {
   @Test
   public void get() {
     Cafe cafe = service.get(CAFE1_ID);
-    System.out.println(cafe);
     assertMatch(cafe, CAFE1);
   }
 

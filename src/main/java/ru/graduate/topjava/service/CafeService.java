@@ -9,6 +9,6 @@ public interface CafeService {
   Cafe get(int id) throws NotFoundException;
   void delete(int id) throws NotFoundException;
   List<Cafe> getAll();
-  Cafe update(Cafe meal);
-  Cafe create(Cafe meal);
+  Cafe update(Cafe cafe);
+  Cafe create(Cafe cafe);
 }
