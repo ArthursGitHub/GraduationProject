@@ -5,8 +5,8 @@ import ru.graduate.topjava.model.Cafe;
 import java.util.List;
 
 public interface CafeRepository {
+  Cafe get(int id);       // null if not found
   Cafe save(Cafe cafe);
-  boolean delete(int id);
-  Cafe get(int id);
   List<Cafe> getAll();
+  boolean delete(int id); // false if not found
 }

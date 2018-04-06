@@ -12,9 +12,13 @@ import java.util.List;
 @Repository
 @Transactional(readOnly = true)
 public class JpaCafeRepositoryImpl implements CafeRepository {
-
   @PersistenceContext
   private EntityManager em;
+
+  @Override
+  public Cafe get(int id) {
+    return em.find(Cafe.class, id);
+  }
 
   @Override
   @Transactional
@@ -28,20 +32,15 @@ public class JpaCafeRepositoryImpl implements CafeRepository {
   }
 
   @Override
+  public List<Cafe> getAll() {
+    return em.createNamedQuery(Cafe.ALL_SORTED, Cafe.class).getResultList();
+  }
+
+  @Override
   @Transactional
   public boolean delete(int id) {
     return em.createNamedQuery(Cafe.DELETE)
             .setParameter("id", id)
             .executeUpdate() != 0;
-  }
-
-  @Override
-  public Cafe get(int id) {
-    return em.find(Cafe.class, id);
-  }
-
-  @Override
-  public List<Cafe> getAll() {
-    return em.createNamedQuery(Cafe.ALL_SORTED, Cafe.class).getResultList();
   }
 }

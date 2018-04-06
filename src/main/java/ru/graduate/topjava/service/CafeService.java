@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface CafeService {
   Cafe get(int id) throws NotFoundException;
-  void delete(int id) throws NotFoundException;
-  List<Cafe> getAll();
-  Cafe update(Cafe cafe);
   Cafe create(Cafe cafe);
+  Cafe update(Cafe cafe);
+  List<Cafe> getAll();
+  void delete(int id) throws NotFoundException;
 }

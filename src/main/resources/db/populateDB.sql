@@ -12,12 +12,16 @@ INSERT INTO cafe (name) VALUES
   ('Молодежное');
 
 INSERT INTO users (name) VALUES
-  ('User'),
-  ('Admin');
+  ('Admin'),
+  ('User1'),
+  ('User2'),
+  ('User3');
 
 INSERT INTO user_roles (role, user_id) VALUES
-  ('ROLE_USER', 100000),
-  ('ROLE_ADMIN', 100001);
+  ('ROLE_ADMIN', 100003),
+  ('ROLE_USER', 100004),
+  ('ROLE_USER', 100005),
+  ('ROLE_USER', 100006);
 
 INSERT INTO meals (date_time, name, price, cafe_id) VALUES
   ('2015-05-30 00:00:00', 'Блинчик', 70, 100009),

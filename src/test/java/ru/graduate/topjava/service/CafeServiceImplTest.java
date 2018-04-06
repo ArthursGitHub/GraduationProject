@@ -31,7 +31,7 @@ public class CafeServiceImplTest extends AbstractServiceTest {
 
   @Test
   public void get() {
-    Cafe cafe = service.get(CAFE1_ID);
+    Cafe cafe = service.get(CAFE_START_ID);
     assertMatch(cafe, CAFE1);
   }
 
@@ -58,7 +58,7 @@ public class CafeServiceImplTest extends AbstractServiceTest {
 
   @Test
   public void delete() throws Exception {
-    service.delete(CAFE1_ID);
+    service.delete(CAFE_START_ID);
     assertMatch(service.getAll(), CAFE2, CAFE3);
   }
 
@@ -72,7 +72,7 @@ public class CafeServiceImplTest extends AbstractServiceTest {
   public void update() throws Exception {
     Cafe updated = getUpdated();
     service.update(updated);
-    assertMatch(service.get(CAFE1_ID), updated);
+    assertMatch(service.get(CAFE_START_ID), updated);
   }
 
   @Test

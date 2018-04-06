@@ -25,8 +25,15 @@ public class CafeServiceImpl implements CafeService {
   }
 
   @Override
-  public void delete(int id) {
-    checkNotFoundWithId(repository.delete(id), id);
+  public Cafe create(Cafe cafe) {
+    Assert.notNull(cafe, "cafe must not be null");
+    return repository.save(cafe);
+  }
+
+  @Override
+  public Cafe update(Cafe cafe) {
+    Assert.notNull(cafe, "cafe must not be null");
+    return checkNotFoundWithId(repository.save(cafe), cafe.getId());
   }
 
   @Override
@@ -35,13 +42,7 @@ public class CafeServiceImpl implements CafeService {
   }
 
   @Override
-  public Cafe update(Cafe cafe) {
-    return checkNotFoundWithId(repository.save(cafe), cafe.getId());
-  }
-
-  @Override
-  public Cafe create(Cafe cafe) {
-    Assert.notNull(cafe, "cafe must not be null");
-    return repository.save(cafe);
+  public void delete(int id) {
+    checkNotFoundWithId(repository.delete(id), id);
   }
 }

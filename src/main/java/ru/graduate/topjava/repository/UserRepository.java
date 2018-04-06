@@ -5,20 +5,8 @@ import ru.graduate.topjava.model.User;
 import java.util.List;
 
 public interface UserRepository {
+  User get(int id);       // null if not found
   User save(User user);
-
-  // false if not found
-  boolean delete(int id);
-
-  // null if not found
-  User get(int id);
-
-  // null if not found
-  User getByEmail(String email);
-
   List<User> getAll();
-
-  default User getWithMeals(int id){
-    throw new UnsupportedOperationException();
-  }
+  boolean delete(int id); // false if not found
 }
