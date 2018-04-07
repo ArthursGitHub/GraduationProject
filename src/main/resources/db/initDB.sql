@@ -32,7 +32,7 @@ CREATE TABLE meals
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name             VARCHAR                 NOT NULL,
   price INTEGER DEFAULT 2000    NOT NULL,
-  date_time   TIMESTAMP NOT NULL,
+  date_time   DATE NOT NULL,
   cafe_id     INTEGER   NOT NULL
 );
 

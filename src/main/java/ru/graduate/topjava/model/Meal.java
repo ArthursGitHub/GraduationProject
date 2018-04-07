@@ -7,22 +7,22 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @NamedQueries({
-        @NamedQuery(name = Meal.BY_CAFE, query = "SELECT m FROM Meal m WHERE m.id=:mealId AND m.cafe.id=:cafeId"),
-        @NamedQuery(name = Meal.GET_ALL, query = "SELECT m FROM Meal m WHERE m.cafe.id=:cafeId"),
+        @NamedQuery(name = Meal.GET_BY_CAFE, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.cafe WHERE m.id=:mealId AND m.cafe.id=:cafeId"),
+        @NamedQuery(name = Meal.GET_ALL_BY_CAFE_BY_DATE, query = "SELECT m FROM Meal m WHERE m.cafe.id=:cafeId AND m.dateTime=:date"),
         @NamedQuery(name = Meal.DELETE,  query = "DELETE   FROM Meal m WHERE m.id=:mealId AND m.cafe.id=:cafeId"),
 })
 @Entity
 @Table(name = "meals")
 public class Meal extends AbstractNamedEntity {
-  public static final String BY_CAFE = "Meal.getByCafe";
-  public static final String GET_ALL = "Meal.getAll";
+  public static final String GET_BY_CAFE = "Meal.getByCafe";
+  public static final String GET_ALL_BY_CAFE_BY_DATE = "Meal.getAllByCafeByDate";
   public static final String DELETE = "Meal.delete";
 
   @Column(name = "date_time")
-  private LocalDateTime dateTime;
+  private LocalDate dateTime;
   private int price;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "cafe_id", nullable = false)
   @NotNull
   private Cafe cafe;
@@ -30,18 +30,11 @@ public class Meal extends AbstractNamedEntity {
   public Meal() {
   }
 
-  public LocalDateTime getDateTime() {
+  public LocalDate getDateTime() {
     return dateTime;
   }
-  public void setDateTime(LocalDateTime dateTime) {
+  public void setDateTime(LocalDate dateTime) {
     this.dateTime = dateTime;
-  }
-
-  public LocalDate getDate() {
-    return dateTime.toLocalDate();
-  }
-  public LocalTime getTime() {
-    return dateTime.toLocalTime();
   }
 
   public int getPrice() {
@@ -65,7 +58,7 @@ public class Meal extends AbstractNamedEntity {
             "\nname = " + name +
             "\nprice = " + price +
             "\ndateTime = " + dateTime +
-            "\ncafe = " + getCafe() +
+//            "\ncafe = " + getCafe() +
             "\n}";
   }
 }

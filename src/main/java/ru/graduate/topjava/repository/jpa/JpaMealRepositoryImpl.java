@@ -21,7 +21,7 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
   @Override
   public Meal get(int id, int cafeId) {
-    List<Meal> meals = em.createNamedQuery(Meal.BY_CAFE, Meal.class)
+    List<Meal> meals = em.createNamedQuery(Meal.GET_BY_CAFE, Meal.class)
             .setParameter("mealId", id)
             .setParameter("cafeId", cafeId)
             .getResultList();
@@ -46,7 +46,7 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
   @Override
   public List<Meal> getAll(int cafeId, LocalDate date) {
-    return em.createNamedQuery(Meal.GET_ALL, Meal.class)
+    return em.createNamedQuery(Meal.GET_ALL_BY_CAFE_BY_DATE, Meal.class)
             .setParameter("cafeId", cafeId)
             .setParameter("date", date)
             .getResultList();

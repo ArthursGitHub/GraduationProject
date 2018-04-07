@@ -34,6 +34,7 @@ public class MealServiceImplTest {
   public void get() {
     Meal meal = service.get(100011, CAFE_START_ID + 1);
     System.out.println(meal);
+    System.out.println(meal.getCafe());
     System.out.println("********************");
   }
 
@@ -42,7 +43,7 @@ public class MealServiceImplTest {
     LocalDate date = LocalDate.of(2015, 5, 23);
     List<Meal> meals = service.getAll(CAFE_START_ID + 1, date);
     for (Meal meal : meals) {
-      System.out.println(meal);
+      System.out.println(meal + "\n");
     }
     System.out.println("********************");
   }
