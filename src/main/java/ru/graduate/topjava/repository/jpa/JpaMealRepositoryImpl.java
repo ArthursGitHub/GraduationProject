@@ -31,11 +31,12 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
   @Override
   @Transactional
-  public Meal save(Meal meal, int cafeId) {
+  public Meal save(Meal meal, int cafeId, LocalDate date) {
     if (!meal.isNew() && get(meal.getId(), cafeId) == null) {
       return null;
     }
     meal.setCafe(em.getReference(Cafe.class, cafeId));
+    meal.setDate(date);
     if (meal.isNew()) {
       em.persist(meal);
       return meal;

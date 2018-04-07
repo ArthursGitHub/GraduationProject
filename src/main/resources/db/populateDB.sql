@@ -23,7 +23,7 @@ INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100005),
   ('ROLE_USER', 100006);
 
-INSERT INTO meals (date_time, name, price, cafe_id) VALUES
+INSERT INTO meals (date, name, price, cafe_id) VALUES
   ('2015-05-21', 'Суп овощной', 90, 100000),
   ('2015-05-22', 'Суп гороховый', 90, 100000),
   ('2015-05-23', 'Борщ', 90, 100000),

@@ -3,12 +3,10 @@ package ru.graduate.topjava.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @NamedQueries({
         @NamedQuery(name = Meal.GET_BY_CAFE, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.cafe WHERE m.id=:mealId AND m.cafe.id=:cafeId"),
-        @NamedQuery(name = Meal.GET_ALL_BY_CAFE_BY_DATE, query = "SELECT m FROM Meal m WHERE m.cafe.id=:cafeId AND m.dateTime=:date"),
+        @NamedQuery(name = Meal.GET_ALL_BY_CAFE_BY_DATE, query = "SELECT m FROM Meal m WHERE m.cafe.id=:cafeId AND m.date=:date"),
         @NamedQuery(name = Meal.DELETE,  query = "DELETE   FROM Meal m WHERE m.id=:mealId AND m.cafe.id=:cafeId"),
 })
 @Entity
@@ -18,8 +16,8 @@ public class Meal extends AbstractNamedEntity {
   public static final String GET_ALL_BY_CAFE_BY_DATE = "Meal.getAllByCafeByDate";
   public static final String DELETE = "Meal.delete";
 
-  @Column(name = "date_time")
-  private LocalDate dateTime;
+  @Column(name = "date")
+  private LocalDate date;
   private int price;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -30,11 +28,16 @@ public class Meal extends AbstractNamedEntity {
   public Meal() {
   }
 
-  public LocalDate getDateTime() {
-    return dateTime;
+  public Meal(Integer id, String name, int price) {
+    super(id, name);
+    setPrice(price);
   }
-  public void setDateTime(LocalDate dateTime) {
-    this.dateTime = dateTime;
+
+  public LocalDate getDate() {
+    return date;
+  }
+  public void setDate(LocalDate dateTime) {
+    this.date = dateTime;
   }
 
   public int getPrice() {
@@ -57,7 +60,7 @@ public class Meal extends AbstractNamedEntity {
             "\nid = " + id +
             "\nname = " + name +
             "\nprice = " + price +
-            "\ndateTime = " + dateTime +
+            "\ndate = " + date +
 //            "\ncafe = " + getCafe() +
             "\n}";
   }

@@ -44,13 +44,14 @@ public class MealRestController {
     int userId = AuthorizedUser.id();
     checkNew(meal);
     log.info("create {} for user {}", meal, userId);
-    return service.create(meal, userId);
+//    return service.create(meal, userId, date);
+    return null;
   }
 
   public void update(Meal meal, int id) {
     int userId = AuthorizedUser.id();
     assureIdConsistent(meal, id);
     log.info("update {} for user {}", meal, userId);
-    service.update(meal, userId);
+//    service.update(meal, userId);
   }
 }
