@@ -9,6 +9,7 @@ import ru.graduate.topjava.repository.MealRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -44,9 +45,10 @@ public class JpaMealRepositoryImpl implements MealRepository {
   }
 
   @Override
-  public List<Meal> getAll(int cafeId) {
+  public List<Meal> getAll(int cafeId, LocalDate date) {
     return em.createNamedQuery(Meal.GET_ALL, Meal.class)
             .setParameter("cafeId", cafeId)
+            .setParameter("date", date)
             .getResultList();
   }
 

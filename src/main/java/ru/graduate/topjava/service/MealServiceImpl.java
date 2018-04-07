@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 import ru.graduate.topjava.model.Meal;
 import ru.graduate.topjava.repository.MealRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.graduate.topjava.util.ValidationUtil.checkNotFoundWithId;
@@ -37,8 +38,8 @@ public class MealServiceImpl implements MealService {
   }
 
   @Override
-  public List<Meal> getAll(int cafeId) {
-    return repository.getAll(cafeId);
+  public List<Meal> getAll(int cafeId, LocalDate date) {
+    return repository.getAll(cafeId, date);
   }
 
   @Override

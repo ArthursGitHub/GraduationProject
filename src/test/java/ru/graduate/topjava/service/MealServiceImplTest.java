@@ -10,7 +10,10 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.graduate.topjava.model.Meal;
 
-import static org.junit.Assert.*;
+import java.time.LocalDate;
+import java.util.List;
+
+import static ru.graduate.topjava.CafeTestData.CAFE_START_ID;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -29,8 +32,18 @@ public class MealServiceImplTest {
 
   @Test
   public void get() {
-    Meal meal = service.get(100000, 6);
+    Meal meal = service.get(100011, CAFE_START_ID + 1);
     System.out.println(meal);
+    System.out.println("********************");
+  }
+
+  @Test
+  public void getAll() {
+    LocalDate date = LocalDate.of(2015, 5, 23);
+    List<Meal> meals = service.getAll(CAFE_START_ID + 1, date);
+    for (Meal meal : meals) {
+      System.out.println(meal);
+    }
     System.out.println("********************");
   }
 }

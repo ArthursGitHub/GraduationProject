@@ -22,7 +22,7 @@ public class Meal extends AbstractNamedEntity {
   private LocalDateTime dateTime;
   private int price;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "cafe_id", nullable = false)
   @NotNull
   private Cafe cafe;
