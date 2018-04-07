@@ -5,16 +5,8 @@ import ru.graduate.topjava.model.Meal;
 import java.util.List;
 
 public interface MealRepository {
-  // null if updated meal do not belong to userId
-  Meal save(Meal meal, int userId);
-
-  // false if meal do not belong to userId
-  boolean delete(int id, int userId);
-
-  // null if meal do not belong to userId
-  Meal get(int id);
-
-  // ORDERED dateTime desc
-  List<Meal> getAll(int userId);
-
+  Meal get(int id, int cafeId);       // null if meal do not belong to cafeId
+  Meal save(Meal meal, int cafeId);   // null if updated meal do not belong to cafeId
+  List<Meal> getAll(int cafeId);      // ORDERED cafeId, dateTime
+  boolean delete(int id, int cafeId); // false if meal do not belong to cafeId
 }

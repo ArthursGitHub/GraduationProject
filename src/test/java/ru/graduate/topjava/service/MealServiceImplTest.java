@@ -29,7 +29,7 @@ public class MealServiceImplTest {
 
   @Test
   public void get() {
-    Meal meal = service.get(100000);
+    Meal meal = service.get(100000, 6);
     System.out.println(meal);
     System.out.println("********************");
   }

@@ -7,14 +7,17 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @NamedQueries({
-        @NamedQuery(name = Meal.MEAL_WITH_CAFE, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.cafe WHERE m.id=:mealId ")
+        @NamedQuery(name = Meal.BY_CAFE, query = "SELECT m FROM Meal m WHERE m.id=:mealId AND m.cafe.id=:cafeId"),
+        @NamedQuery(name = Meal.GET_ALL, query = "SELECT m FROM Meal m WHERE m.cafe.id=:cafeId"),
+        @NamedQuery(name = Meal.DELETE,  query = "DELETE   FROM Meal m WHERE m.id=:mealId AND m.cafe.id=:cafeId"),
 })
-
 @Entity
 @Table(name = "meals")
 public class Meal extends AbstractNamedEntity {
+  public static final String BY_CAFE = "Meal.getByCafe";
+  public static final String GET_ALL = "Meal.getAll";
+  public static final String DELETE = "Meal.delete";
 
-  public static final String MEAL_WITH_CAFE = "Meal.getMealWithCafe";
   @Column(name = "date_time")
   private LocalDateTime dateTime;
   private int price;

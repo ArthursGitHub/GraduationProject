@@ -6,10 +6,9 @@ import ru.graduate.topjava.util.exception.NotFoundException;
 import java.util.List;
 
 public interface MealService {
-//  Meal get(int id, int userId) throws NotFoundException;
-  Meal get(int id) throws NotFoundException;
-  void delete(int id, int userId) throws NotFoundException;
-  List<Meal> getAll(int userId);
-  Meal update(Meal meal, int userId) throws NotFoundException;
-  Meal create(Meal meal, int userId);
+  Meal get(int id, int cafeId) throws NotFoundException;
+  Meal create(Meal meal, int cafeId);
+  Meal update(Meal meal, int cafeId) throws NotFoundException;
+  List<Meal> getAll(int cafeId);
+  void delete(int id, int cafeId) throws NotFoundException;
 }
