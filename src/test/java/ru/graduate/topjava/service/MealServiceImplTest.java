@@ -16,7 +16,7 @@ import java.util.List;
 
 import static java.time.LocalDate.of;
 import static ru.graduate.topjava.CafeTestData.CAFE1;
-import static ru.graduate.topjava.CafeTestData.CAFE_START_ID;
+import static ru.graduate.topjava.CafeTestData.CAFE2;
 import static ru.graduate.topjava.MealTestData.*;
 
 @ContextConfiguration({
@@ -36,16 +36,14 @@ public class MealServiceImplTest extends AbstractServiceTest {
 
   @Test
   public void get() {
-    Meal meal = service.get(100011, CAFE_START_ID + 1);
-    System.out.println(meal);
-    System.out.println(meal.getCafe());
-    System.out.println("********************");
+    Meal meal = service.get(MEAL1.getId(), CAFE1.getId());
+    assertMatch(meal, MEAL1);
   }
 
   @Test
   public void getNotFound() throws Exception {
     thrown.expect(NotFoundException.class);
-    service.get(100011, CAFE_START_ID);
+    service.get(MEAL1.getId(), CAFE2.getId());
   }
 
   @Test
@@ -56,13 +54,14 @@ public class MealServiceImplTest extends AbstractServiceTest {
     assertMatch(service.getAll(CAFE1.getId(), date), MEAL3, MEAL13, MEAL23, newMeal);
   }
 
+
+
+
+
   @Test
   public void getAll() {
     LocalDate date = of(2015, 5, 23);
-    List<Meal> meals = service.getAll(CAFE_START_ID + 1, date);
-    for (Meal meal : meals) {
-      System.out.println(meal + "\n");
-    }
-    System.out.println("********************");
+    List<Meal> meals = service.getAll(CAFE1.getId(), date);
+    assertMatch(meals, MEAL3, MEAL13, MEAL23);
   }
 }

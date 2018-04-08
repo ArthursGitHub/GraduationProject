@@ -53,6 +53,9 @@ public class MealTestData {
 
   public static final int MEAL_END_ID = MEAL30.getId();
 
+  public static void assertMatch(Meal actual, Meal expected) {
+    assertThat(actual).isEqualToIgnoringGivenFields(expected, "");
+  }
 
   public static void assertMatch(Iterable<Meal> actual, Meal... expected) {
     assertMatch(actual, Arrays.asList(expected));
