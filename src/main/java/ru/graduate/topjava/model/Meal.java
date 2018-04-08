@@ -33,6 +33,12 @@ public class Meal extends AbstractNamedEntity {
     setPrice(price);
   }
 
+  public Meal(Integer id, String name, int price, Cafe cafe, LocalDate date) {
+    this(id, name, price);
+    setCafe(cafe);
+    setDate(date);
+  }
+
   public LocalDate getDate() {
     return date;
   }

@@ -15,7 +15,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static java.time.LocalDate.of;
+import static ru.graduate.topjava.CafeTestData.CAFE1;
 import static ru.graduate.topjava.CafeTestData.CAFE_START_ID;
+import static ru.graduate.topjava.MealTestData.*;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -49,17 +51,11 @@ public class MealServiceImplTest extends AbstractServiceTest {
   @Test
   public void create() throws Exception {
     final LocalDate date = of(2015, 5, 23);
-    Meal newMeal = new Meal(null, "Борщ", 90);
-    Meal created = service.create(newMeal, CAFE_START_ID, date);
-/*
-    newMeal.setId(created.getId());
-*/
-//    assertMatch(service.getAll(), ADMIN, newMeal, USER1, USER2, USER3);
+    Meal newMeal = new Meal(null, "4. Конфета", 90);
+    Meal created = service.create(newMeal, CAFE1.getId(), date);
+    assertMatch(service.getAll(CAFE1.getId(), date), MEAL3, MEAL13, MEAL23, newMeal);
   }
-  
-  
-  
-  
+
   @Test
   public void getAll() {
     LocalDate date = of(2015, 5, 23);
