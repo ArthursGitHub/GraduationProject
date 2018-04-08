@@ -18,6 +18,7 @@ import static java.time.LocalDate.of;
 import static ru.graduate.topjava.CafeTestData.CAFE1;
 import static ru.graduate.topjava.CafeTestData.CAFE2;
 import static ru.graduate.topjava.MealTestData.*;
+import static ru.graduate.topjava.UserTestData.USER_START_ID;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -54,9 +55,27 @@ public class MealServiceImplTest extends AbstractServiceTest {
     assertMatch(service.getAll(CAFE1.getId(), date), MEAL3, MEAL13, MEAL23, newMeal);
   }
 
+  @Test
+  public void delete() throws Exception {
+    LocalDate date = of(2015, 5, 23);
+    service.delete(MEAL13.getId(), CAFE1.getId());
+    assertMatch(service.getAll(CAFE1.getId(), date), MEAL3, MEAL23);
+  }
 
+  @Test
+  public void deleteNotFound() throws Exception {
+    thrown.expect(NotFoundException.class);
+    service.delete(MEAL1.getId(), CAFE2.getId());
+  }
 
-
+  @Test
+  public void update() throws Exception {
+    LocalDate date = of(2015, 5, 23);
+    Meal updated = new Meal(MEAL1);
+    updated.setName("UpdatedName");
+    service.update(updated, CAFE1.getId(), date);
+    assertMatch(service.get(MEAL1.getId(), MEAL1.getCafe().getId()), updated);
+  }
 
   @Test
   public void getAll() {

@@ -39,6 +39,10 @@ public class Meal extends AbstractNamedEntity {
     setDate(date);
   }
 
+  public Meal(Meal meal) {
+    this(meal.getId(), meal.getName(), meal.getPrice(), meal.getCafe(), meal.getDate());
+  }
+
   public LocalDate getDate() {
     return date;
   }
