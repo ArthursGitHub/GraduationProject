@@ -51,9 +51,10 @@ public class VoteServiceImplTest {
   @Test
   public void create() throws Exception {
     Vote newVote = new Vote();
+    newVote.setCafe(CAFE3);
     LocalDateTime dateTime = LocalDateTime.of(2015, 5, 21, 7, 30);
 
-    service.create(newVote, USER1.getId(), dateTime, CAFE1.getId());
+    service.create(newVote, USER1.getId(), dateTime);
 
     List<Vote> votes = service.getAll(dateTime.toLocalDate());
     for (Vote vote : votes) {
@@ -61,21 +62,21 @@ public class VoteServiceImplTest {
     }
   }
 
-
-
+  @Test
+  public void delete() throws Exception {
+  }
 
   @Test
   public void update() throws Exception {
     Vote updated = new Vote(VOTE1);
     LocalDateTime dateTime = LocalDateTime.of(2015, 5, 21, 7, 30);
 
-    service.update(updated, USER1.getId(), dateTime, CAFE3.getId());
+    updated.setCafe(CAFE3);
+    service.update(updated, USER1.getId(), dateTime);
 
     Vote vote = service.get(USER1.getId(), dateTime.toLocalDate());
+    System.out.println(vote);
   }
-
-
-
 
   @Test
   public void getAll() throws Exception {

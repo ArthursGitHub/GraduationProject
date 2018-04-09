@@ -53,12 +53,11 @@ public class JpaVoteRepositoryImpl implements VoteRepository {
 
   @Override
   @Transactional
-  public Vote save(Vote vote, Integer userId, LocalDateTime dateTime, Integer cafeId) {
+  public Vote save(Vote vote, Integer userId, LocalDateTime dateTime) { // TODO добавить проверку на dateTime
     if (!vote.isNew() && get(vote.getId(), userId) == null) {
       return null;
     }
     vote.setUser(em.getReference(User.class, userId));
-    vote.setCafe(em.getReference(Cafe.class, cafeId));
     vote.setDateTime(dateTime);
     if (vote.isNew()) {
       em.persist(vote);
