@@ -2,19 +2,13 @@ package ru.graduate.topjava.repository;
 
 import ru.graduate.topjava.model.Vote;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface VoteRepository {
-  // null if updated meal do not belong to userId
-  Vote save(Vote meal);
-
-  // false if meal do not belong to userId
-  boolean delete(int id);
-
-  // null if meal do not belong to userId
-  Vote get(int id);
-
-  // ORDERED dateTime desc
-  List<Vote> getAll();
-
+//  Vote get(Integer integer, int id, LocalDateTime dateTime); // null if vote do not belong to userId
+  Vote get(Integer id, LocalDate date); // null if vote do not belong to userId
+  Vote save(Vote vote); // null if updated vote do not belong to userId
+  List<Vote> getAll(LocalDate date);  // ORDERED dateTime desc
+  boolean delete(int id); // false if vote do not belong to userId
 }

@@ -4,29 +4,42 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.graduate.topjava.model.Vote;
-import ru.graduate.topjava.repository.UserRepository;
 import ru.graduate.topjava.repository.VoteRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-//@Transactional(readOnly = true)
+@Transactional(readOnly = true)
 public class JpaVoteRepositoryImpl implements VoteRepository {
-
-/*
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    private Session openSession() {
-        return sessionFactory.getCurrentSession();
-    }
-*/
 
   @PersistenceContext
   private EntityManager em;
+
+/*  @Override
+  public Vote get(Integer id, int userId, LocalDateTime dateTime) {
+    List<Vote> votes = em.createNamedQuery(Vote.GET_BY_USER_BY_DATETIME, Vote.class)
+            .setParameter("userId", userId)
+            .setParameter("dateTime", dateTime)
+            .getResultList();
+    return DataAccessUtils.singleResult(votes);
+  }*/
+
+  @Override
+  public Vote get(Integer userId, LocalDate date) {
+    LocalDateTime dateTime1 = date.atStartOfDay();
+    LocalDateTime dateTime2 = dateTime1.plusDays(1);
+    List<Vote> votes = em.createNamedQuery(Vote.GET_BY_USER_BY_DATE, Vote.class)
+            .setParameter("userId", userId)
+            .setParameter("dateTime1", dateTime1)
+            .setParameter("dateTime2", dateTime2)
+            .getResultList();
+    return DataAccessUtils.singleResult(votes);
+  }
 
   @Override
   @Transactional
@@ -40,13 +53,14 @@ public class JpaVoteRepositoryImpl implements VoteRepository {
   }
 
   @Override
-  public Vote get(int id) {
-//    return em.find(Vote.class, id);
-    TypedQuery query = em.createQuery("SELECT e FROM Vote e LEFT JOIN FETCH e.cafe LEFT JOIN FETCH e.user", Vote.class);
-    List<Vote> resultList = query.getResultList();
-    Vote vote = resultList.get(0);
-//        System.out.println(vote.getMeals());
-    return vote;
+  public List<Vote> getAll(LocalDate date) {
+    Timestamp timestamp = Timestamp.valueOf(date.atStartOfDay());
+    LocalDateTime dateTime1 = timestamp.toLocalDateTime();
+    LocalDateTime dateTime2 = dateTime1.plusDays(1);
+    return em.createNamedQuery(Vote.GET_ALL_BY_DATE, Vote.class)
+            .setParameter(1, dateTime1)
+            .setParameter(2, dateTime2)
+            .getResultList();
   }
 
   @Override
@@ -64,33 +78,4 @@ public class JpaVoteRepositoryImpl implements VoteRepository {
             .executeUpdate() != 0;
   }
 
-
-
-  @Override
-  public List<Vote> getAll() {
-    return em.createNamedQuery(null, Vote.class).getResultList();
-  }
-
-  //    @Transactional(readOnly = true)
-  public Vote getWithMeals2(int id) {
-/*        List<Vote> users = em.createNamedQuery(Vote.ALL_WITH_Meal, Vote.class)
-                .setParameter("userId", id)
-                .getResultList();
-
-        return users.size() > 0 ? users.get(0) : null;*/
-
-    TypedQuery query = em.createQuery("SELECT e FROM Vote e ", Vote.class);
-//        TypedQuery query = em.createQuery("SELECT e FROM Vote e LEFT JOIN FETCH e.meals", Vote.class);
-    List<Vote> resultList = query.getResultList();
-    Vote vote = resultList.get(0);
-//        System.out.println(vote.getMeals());
-    return vote;
-  }
-
-  @Transactional(readOnly = true)
-  public Vote getWithMeals(int id) {
-    Vote withMeals2 = getWithMeals2(id);
-//    System.out.println(null);
-    return withMeals2;
-  }
 }

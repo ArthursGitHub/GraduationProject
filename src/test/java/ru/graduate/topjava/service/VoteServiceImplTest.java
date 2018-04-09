@@ -8,10 +8,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.graduate.topjava.model.User;
 import ru.graduate.topjava.model.Vote;
 
-import static org.junit.Assert.*;
+import java.time.LocalDate;
+import java.util.List;
+
+import static ru.graduate.topjava.UserTestData.USER1;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -27,9 +29,34 @@ public class VoteServiceImplTest {
   @Autowired
   protected VoteService service;
 
+/*  @Test
+  public void get2() {  // ??????
+    LocalDateTime dateTime = LocalDateTime.of(2015, 5, 21, 10, 0);
+    Vote vote = service.get(VOTE1.getId(), USER1.getId(), dateTime);
+    System.out.println(vote);
+  }*/
+
   @Test
   public void get() {
-    Vote vote = service.get(100013);
+    // Get a vote of the specified user for the certain date
+    LocalDate date = LocalDate.of(2015, 5, 21);
+    Vote vote = service.get(USER1.getId(), date);
     System.out.println(vote);
+  }
+
+
+
+  @Test
+  public void getAll() throws Exception {
+    // Get all votes for the specified date
+    LocalDate date = LocalDate.of(2015, 5, 21);
+
+    List<Vote> votes = service.getAll(date);
+
+    for (Vote vote : votes) {
+      System.out.println(vote);
+      System.out.println(vote.getCafe());
+      System.out.println("--------------------");
+    }
   }
 }

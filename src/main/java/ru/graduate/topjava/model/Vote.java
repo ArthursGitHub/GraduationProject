@@ -3,8 +3,17 @@ package ru.graduate.topjava.model;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@NamedQueries({
+        @NamedQuery(name = Vote.GET_ALL_BY_DATE, query = "SELECT v FROM Vote v LEFT JOIN FETCH v.cafe WHERE v.dateTime Between ?1 and ?2"),
+        @NamedQuery(name = Vote.GET_BY_USER_BY_DATETIME, query = "SELECT v FROM Vote v LEFT JOIN FETCH v.cafe WHERE v.user.id=:userId AND v.dateTime=:dateTime"),
+        @NamedQuery(name = Vote.GET_BY_USER_BY_DATE, query = "SELECT v FROM Vote v LEFT JOIN FETCH v.cafe WHERE v.user.id=:userId AND v.dateTime Between :dateTime1 and :dateTime2"),
+})
 @Entity
 public class Vote extends AbstractBaseEntity {
+  public static final String GET_ALL_BY_DATE = "Vote.getAllByDate";
+  public static final String GET_BY_USER_BY_DATETIME = "Vote.getByUserByDateTime";
+  public static final String GET_BY_USER_BY_DATE = "Vote.getByUserByDate";
+
   @Column(name = "date_time")
   private LocalDateTime dateTime;
 
@@ -15,6 +24,13 @@ public class Vote extends AbstractBaseEntity {
   @OneToOne(fetch= FetchType.LAZY)
   @JoinColumn(name="user_id")
   private User user;
+
+  public Vote() {
+  }
+
+  public Vote(int id) {
+    super(id);
+  }
 
 
   public LocalDateTime getDateTime() {
@@ -42,8 +58,8 @@ public class Vote extends AbstractBaseEntity {
   public String toString() {
     return "Vote{" +
             "id=" + id +
-            ", cafe=" + cafe +
-            ", user=" + user +
+//            ", cafe=" + cafe +
+//            ", user=" + user +
             ", dateTime=" + dateTime +
             '}';
   }

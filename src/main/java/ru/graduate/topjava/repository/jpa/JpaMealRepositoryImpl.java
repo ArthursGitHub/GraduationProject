@@ -25,8 +25,7 @@ public class JpaMealRepositoryImpl implements MealRepository {
             .setParameter("mealId", id)
             .setParameter("cafeId", cafeId)
             .getResultList();
-    Meal meal = DataAccessUtils.singleResult(meals);
-    return meal;
+    return DataAccessUtils.singleResult(meals);
   }
 
   @Override
