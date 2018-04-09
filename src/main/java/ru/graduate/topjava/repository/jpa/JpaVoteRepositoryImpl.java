@@ -53,7 +53,7 @@ public class JpaVoteRepositoryImpl implements VoteRepository {
 
   @Override
   @Transactional
-  public Vote save(Vote vote, Integer userId, Integer cafeId, LocalDateTime dateTime) {
+  public Vote save(Vote vote, Integer userId, LocalDateTime dateTime, Integer cafeId) {
     if (!vote.isNew() && get(vote.getId(), userId) == null) {
       return null;
     }

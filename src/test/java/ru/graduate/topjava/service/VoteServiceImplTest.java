@@ -15,7 +15,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.graduate.topjava.CafeTestData.CAFE1;
+import static ru.graduate.topjava.CafeTestData.CAFE3;
 import static ru.graduate.topjava.UserTestData.USER1;
+import static ru.graduate.topjava.VoteTestData.VOTE1;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -51,13 +53,29 @@ public class VoteServiceImplTest {
     Vote newVote = new Vote();
     LocalDateTime dateTime = LocalDateTime.of(2015, 5, 21, 7, 30);
 
-    service.create(newVote, USER1.getId(), CAFE1.getId(), dateTime);
+    service.create(newVote, USER1.getId(), dateTime, CAFE1.getId());
 
     List<Vote> votes = service.getAll(dateTime.toLocalDate());
     for (Vote vote : votes) {
       System.out.println(vote + "\n");
     }
   }
+
+
+
+
+  @Test
+  public void update() throws Exception {
+    Vote updated = new Vote(VOTE1);
+    LocalDateTime dateTime = LocalDateTime.of(2015, 5, 21, 7, 30);
+
+    service.update(updated, USER1.getId(), dateTime, CAFE3.getId());
+
+    Vote vote = service.get(USER1.getId(), dateTime.toLocalDate());
+  }
+
+
+
 
   @Test
   public void getAll() throws Exception {

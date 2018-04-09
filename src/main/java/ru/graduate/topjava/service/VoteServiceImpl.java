@@ -34,15 +34,15 @@ public class VoteServiceImpl implements VoteService {
   }
 
   @Override
-  public Vote create(Vote vote, Integer userId, Integer cafeId, LocalDateTime dateTime) {
+  public Vote create(Vote vote, Integer userId, LocalDateTime dateTime, Integer cafeId) {
     Assert.notNull(vote, "vote must not be null");
-    return repository.save(vote, userId, cafeId, dateTime);
+    return repository.save(vote, userId, dateTime, cafeId);
   }
 
   @Override
-  public void update(Vote vote) {
+  public void update(Vote vote, Integer userId, LocalDateTime dateTime, Integer cafeId) {
     Assert.notNull(vote, "vote must not be null");
-//    checkNotFoundWithId(repository.save(vote, userId, cafeId, dateTime), vote.getId());
+    checkNotFoundWithId(repository.save(vote, userId, dateTime, cafeId), vote.getId());
   }
 
   @Override
