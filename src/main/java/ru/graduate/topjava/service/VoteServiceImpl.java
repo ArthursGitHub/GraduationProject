@@ -8,6 +8,7 @@ import ru.graduate.topjava.repository.VoteRepository;
 import ru.graduate.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static ru.graduate.topjava.util.ValidationUtil.checkNotFoundWithId;
@@ -33,15 +34,15 @@ public class VoteServiceImpl implements VoteService {
   }
 
   @Override
-  public Vote create(Vote vote) {
+  public Vote create(Vote vote, Integer userId, Integer cafeId, LocalDateTime dateTime) {
     Assert.notNull(vote, "vote must not be null");
-    return repository.save(vote);
+    return repository.save(vote, userId, cafeId, dateTime);
   }
 
   @Override
   public void update(Vote vote) {
     Assert.notNull(vote, "vote must not be null");
-    checkNotFoundWithId(repository.save(vote), vote.getId());
+//    checkNotFoundWithId(repository.save(vote, userId, cafeId, dateTime), vote.getId());
   }
 
   @Override

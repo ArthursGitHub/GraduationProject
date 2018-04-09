@@ -11,8 +11,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.graduate.topjava.model.Vote;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.graduate.topjava.CafeTestData.CAFE1;
 import static ru.graduate.topjava.UserTestData.USER1;
 
 @ContextConfiguration({
@@ -44,7 +46,18 @@ public class VoteServiceImplTest {
     System.out.println(vote);
   }
 
+  @Test
+  public void create() throws Exception {
+    Vote newVote = new Vote();
+    LocalDateTime dateTime = LocalDateTime.of(2015, 5, 21, 7, 30);
 
+    service.create(newVote, USER1.getId(), CAFE1.getId(), dateTime);
+
+    List<Vote> votes = service.getAll(dateTime.toLocalDate());
+    for (Vote vote : votes) {
+      System.out.println(vote + "\n");
+    }
+  }
 
   @Test
   public void getAll() throws Exception {

@@ -3,6 +3,8 @@ package ru.graduate.topjava.repository.jpa;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.graduate.topjava.model.Cafe;
+import ru.graduate.topjava.model.User;
 import ru.graduate.topjava.model.Vote;
 import ru.graduate.topjava.repository.VoteRepository;
 
@@ -41,9 +43,23 @@ public class JpaVoteRepositoryImpl implements VoteRepository {
     return DataAccessUtils.singleResult(votes);
   }
 
+  public Vote get(Integer voteId, Integer userId) {
+    List<Vote> votes = em.createNamedQuery(Vote.GET_BY_ID_BY_USER, Vote.class)
+            .setParameter("voteId", voteId)
+            .setParameter("userId", userId)
+            .getResultList();
+    return DataAccessUtils.singleResult(votes);
+  }
+
   @Override
   @Transactional
-  public Vote save(Vote vote) {
+  public Vote save(Vote vote, Integer userId, Integer cafeId, LocalDateTime dateTime) {
+    if (!vote.isNew() && get(vote.getId(), userId) == null) {
+      return null;
+    }
+    vote.setUser(em.getReference(User.class, userId));
+    vote.setCafe(em.getReference(Cafe.class, cafeId));
+    vote.setDateTime(dateTime);
     if (vote.isNew()) {
       em.persist(vote);
       return vote;
