@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 //        @NamedQuery(name = Vote.GET_BY_USER_BY_DATETIME, query = "SELECT v FROM Vote v LEFT JOIN FETCH v.cafe WHERE v.user.id=:userId AND v.dateTime=:dateTime"),
         @NamedQuery(name = Vote.GET_BY_USER_BY_DATE, query = "SELECT v FROM Vote v LEFT JOIN FETCH v.cafe WHERE v.user.id=:userId AND v.dateTime Between :dateTime1 and :dateTime2"),
         @NamedQuery(name = Vote.GET_BY_ID_BY_USER, query = "SELECT v FROM Vote v WHERE v.id=:voteId AND v.user.id=:userId"),
+        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id AND v.user.id=:userId AND v.dateTime Between :dateTime1 and :dateTime2"),
 })
 @Entity
 public class Vote extends AbstractBaseEntity {
@@ -15,6 +16,7 @@ public class Vote extends AbstractBaseEntity {
   //  public static final String GET_BY_USER_BY_DATETIME = "Vote.getByUserByDateTime";
   public static final String GET_BY_USER_BY_DATE = "Vote.getByUserByDate";
   public static final String GET_BY_ID_BY_USER = "Vote.getByIdByUser";
+  public static final String DELETE = "Vote.delete";
 
   @Column(name = "date_time")
   private LocalDateTime dateTime;

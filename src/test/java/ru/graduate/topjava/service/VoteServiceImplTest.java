@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static ru.graduate.topjava.CafeTestData.CAFE1;
 import static ru.graduate.topjava.CafeTestData.CAFE3;
 import static ru.graduate.topjava.UserTestData.USER1;
 import static ru.graduate.topjava.VoteTestData.VOTE1;
@@ -64,6 +63,25 @@ public class VoteServiceImplTest {
 
   @Test
   public void delete() throws Exception {
+    LocalDateTime dateTime = LocalDateTime.of(2015, 5, 21, 7, 30);
+
+    List<Vote> votes = service.getAll(dateTime.toLocalDate());
+
+    for (Vote vote : votes) {
+      System.out.println(vote);
+      System.out.println(vote.getCafe());
+      System.out.println("--------------------");
+    }
+
+    service.delete(VOTE1.getId(), USER1.getId(), dateTime);
+
+    votes = service.getAll(dateTime.toLocalDate());
+
+    for (Vote vote : votes) {
+      System.out.println(vote);
+      System.out.println(vote.getCafe());
+      System.out.println("--------------------");
+    }
   }
 
   @Test

@@ -13,5 +13,5 @@ public interface VoteService {
   Vote create(Vote user, Integer userId, LocalDateTime dateTime);
   void update(Vote user, Integer userid, LocalDateTime dateTime);
   List<Vote> getAll(LocalDate date);
-  void delete(int id) throws NotFoundException;
+  void delete(int id, int userId, LocalDateTime dateTime) throws NotFoundException;
 }

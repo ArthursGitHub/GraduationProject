@@ -11,5 +11,5 @@ public interface VoteRepository {
   Vote get(Integer id, LocalDate date); // null if vote do not belong to userId
   Vote save(Vote vote, Integer userId, LocalDateTime dateTime); // null if updated vote do not belong to userId
   List<Vote> getAll(LocalDate date);  // ORDERED dateTime desc
-  boolean delete(int id); // false if vote do not belong to userId
+  boolean delete(int id, int userId, LocalDateTime dateTime); // false if vote do not belong to userId
 }

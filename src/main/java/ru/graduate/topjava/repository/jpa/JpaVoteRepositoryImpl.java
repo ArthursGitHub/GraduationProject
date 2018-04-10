@@ -3,7 +3,6 @@ package ru.graduate.topjava.repository.jpa;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.graduate.topjava.model.Cafe;
 import ru.graduate.topjava.model.User;
 import ru.graduate.topjava.model.Vote;
 import ru.graduate.topjava.repository.VoteRepository;
@@ -80,17 +79,14 @@ public class JpaVoteRepositoryImpl implements VoteRepository {
 
   @Override
   @Transactional
-  public boolean delete(int id) {
-
-/*      Vote ref = em.getReference(Vote.class, id);
-        em.remove(ref);
-
-        Query query = em.createQuery("DELETE FROM Vote u WHERE u.id=:id");
-        return query.setParameter("id", id).executeUpdate() != 0;
-*/
-    return em.createNamedQuery(null)
+  public boolean delete(int id, int userId, LocalDateTime dateTime) {
+    LocalDateTime dateTime1 = dateTime.toLocalDate().atStartOfDay();
+    LocalDateTime dateTime2 = dateTime1.plusDays(1);
+    return em.createNamedQuery(Vote.DELETE)
             .setParameter("id", id)
+            .setParameter("userId", userId)
+            .setParameter("dateTime1", dateTime1)
+            .setParameter("dateTime2", dateTime2)
             .executeUpdate() != 0;
   }
-
 }
