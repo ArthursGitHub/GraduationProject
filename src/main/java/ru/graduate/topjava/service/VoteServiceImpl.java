@@ -6,9 +6,11 @@ import org.springframework.util.Assert;
 import ru.graduate.topjava.model.Vote;
 import ru.graduate.topjava.repository.VoteRepository;
 import ru.graduate.topjava.util.exception.NotFoundException;
+import ru.graduate.topjava.util.exception.VotingReglamentExeption;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static ru.graduate.topjava.util.ValidationUtil.checkNotFoundWithId;
@@ -19,6 +21,8 @@ public class VoteServiceImpl implements VoteService {
   private final VoteRepository repository;
 
   @Autowired
+  private TimeService timeService;
+
   public VoteServiceImpl(VoteRepository repository) {
     this.repository = repository;
   }
@@ -34,7 +38,15 @@ public class VoteServiceImpl implements VoteService {
   }
 
   @Override
-  public Vote create(Vote vote, Integer userId, LocalDateTime dateTime) {
+  public Vote create(Vote vote, Integer userId) {
+    final LocalTime votingFinishTime = LocalTime.of(11, 0);
+    LocalDateTime dateTime = timeService.getDateTime();
+    LocalTime localTime = dateTime.toLocalTime();
+
+    if (localTime.compareTo(votingFinishTime) > 0) {
+      throw new VotingReglamentExeption("Voting time finished.");
+    }
+
     Assert.notNull(vote, "vote must not be null");
     return repository.save(vote, userId, dateTime);
   }

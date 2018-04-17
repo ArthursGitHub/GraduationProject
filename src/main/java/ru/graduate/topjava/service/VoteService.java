@@ -10,7 +10,7 @@ import java.util.List;
 public interface VoteService {
 //  Vote get(Integer vote1Id, int id, LocalDateTime dateTime) throws NotFoundException;
   Vote get(Integer userId, LocalDate date) throws NotFoundException;
-  Vote create(Vote user, Integer userId, LocalDateTime dateTime);
+  Vote create(Vote user, Integer userId);
   void update(Vote user, Integer userid, LocalDateTime dateTime);
   List<Vote> getAll(LocalDate date);
   void delete(int id, int userId, LocalDateTime dateTime) throws NotFoundException;

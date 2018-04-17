@@ -9,6 +9,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.graduate.topjava.model.Vote;
+import ru.graduate.topjava.util.exception.VotingReglamentExeption;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,13 +25,17 @@ import static ru.graduate.topjava.VoteTestData.VOTE1;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class VoteServiceImplTest {
+public class VoteServiceImplTest extends AbstractServiceTest {
   static {
     SLF4JBridgeHandler.install();
   }
 
   @Autowired
+  private TimeService timeService;
+
+  @Autowired
   protected VoteService service;
+
 
 /*  @Test
   public void get2() {  // ??????
@@ -49,17 +54,33 @@ public class VoteServiceImplTest {
 
   @Test
   public void create() throws Exception {
+    LocalDateTime systemDateTime = LocalDateTime.of(2015, 5, 21, 10, 30);
+    timeService.setDateTime(systemDateTime);
+
     Vote newVote = new Vote();
     newVote.setCafe(CAFE3);
-    LocalDateTime dateTime = LocalDateTime.of(2015, 5, 21, 7, 30);
 
-    service.create(newVote, USER1.getId(), dateTime);
+    service.create(newVote, USER1.getId());
 
-    List<Vote> votes = service.getAll(dateTime.toLocalDate());
+    List<Vote> votes = service.getAll(systemDateTime.toLocalDate());
     for (Vote vote : votes) {
       System.out.println(vote + "\n");
     }
   }
+
+  @Test
+  public void createAfterReglamentTime() {
+    thrown.expect(VotingReglamentExeption.class);
+
+    LocalDateTime systemDateTime = LocalDateTime.of(2015, 5, 21, 11, 01);
+    timeService.setDateTime(systemDateTime);
+
+    Vote newVote = new Vote();
+    newVote.setCafe(CAFE3);
+
+    service.create(newVote, USER1.getId());
+  }
+
 
   @Test
   public void delete() throws Exception {
