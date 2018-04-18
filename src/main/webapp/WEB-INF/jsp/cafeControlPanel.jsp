@@ -17,6 +17,7 @@
         <thead>
         <tr>
             <th>Name</th>
+            <th>Menu</th>
             <th></th>
             <th></th>
         </tr>
@@ -25,6 +26,7 @@
             <jsp:useBean id="cafe" scope="page" type="ru.graduate.topjava.model.Cafe"/>
             <tr>
                 <td>${cafe.name}</td>
+                <td><a href="/admin/cafe/menu?id=${cafe.id}">menu</a></td>
                 <td><a href="/admin/cafe/update?id=${cafe.id}">update</a></td>
                 <td><a href="/admin/cafe/delete?id=${cafe.id}">delete</a></td>
             </tr>
