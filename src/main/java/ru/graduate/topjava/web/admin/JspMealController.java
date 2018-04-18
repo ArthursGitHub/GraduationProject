@@ -9,16 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.graduate.topjava.model.Role;
 import ru.graduate.topjava.model.Meal;
 import ru.graduate.topjava.service.MealService;
+import ru.graduate.topjava.service.TimeService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.Objects;
 
-@RequestMapping(value = "/admin/meal")
+@RequestMapping(value = "/admin/cafe/meal")
 @Controller
 public class JspMealController {
 
   @Autowired
   private MealService service;
+
+  @Autowired
+  private TimeService timeService;
 
   @GetMapping("")
   public String root(Model model) {
@@ -30,7 +35,7 @@ public class JspMealController {
   public String createMeal(HttpServletRequest request, Model model) {
     final Meal newMeal = new Meal();
     model.addAttribute("meal", newMeal);
-    return "mealForm";
+    return "menuForm";
   }
 
   @GetMapping("update")
@@ -50,18 +55,26 @@ public class JspMealController {
 
   @PostMapping()
   public String setMeal(HttpServletRequest request) {
-    String mealName = request.getParameter("name");
-//    Meal meal = new Meal(null, mealName, Role.ROLE_Meal);
+    LocalDate localDate = timeService.getDateTime().toLocalDate();
+
+    String name = request.getParameter("name");
+    String priceVal = request.getParameter("price");
+    String cafeIdVal = request.getParameter("cafeId");
+
+    int price = Integer.parseInt(priceVal);
+    int cafeId = Integer.parseInt(cafeIdVal);
+
+    Meal meal = new Meal(null, name, price);
 
     String id = request.getParameter("id");
     if(id.isEmpty()){
-//      service.create(meal);
+      service.create(meal, cafeId, localDate);
     } else {
-//      meal.setId(Integer.parseInt(id));
-//      service.update(meal);
+      meal.setId(Integer.parseInt(id));
+      service.update(meal, cafeId, localDate);
     }
 
-    return "redirect:/admin/meal";
+    return "redirect:/admin/cafe/menu";
   }
 
   private int getId(HttpServletRequest request) {

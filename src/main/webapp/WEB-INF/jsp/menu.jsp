@@ -11,7 +11,7 @@
     Меню выбранного кафе
     <hr>
 
-    <a href="/admin/cafe/meal/create">Add menu</a>
+    <a href="/admin/cafe/meal/create?cafeId=${param.id}">Add menu</a>
     <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
