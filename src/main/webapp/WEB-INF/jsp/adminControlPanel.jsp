@@ -13,7 +13,7 @@
 
 <ul>
     <li><a href="/admin/cafe/">Кафе</a></li>
-    <li><a href="/admin/users">Пользователи</a></li>
+    <li><a href="/admin/user/">Пользователи</a></li>
 </ul>
 
 <%--

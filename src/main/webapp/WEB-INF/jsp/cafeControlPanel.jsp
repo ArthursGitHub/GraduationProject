@@ -11,7 +11,7 @@
     Информация про все кафешки
     <hr>
 
-    <a href="/admin/cafe/create"> Create cafe</a>
+    <a href="/admin/cafe/create">Create cafe</a>
     <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -34,5 +34,3 @@
 </section>
 </body>
 </html>
-
-
