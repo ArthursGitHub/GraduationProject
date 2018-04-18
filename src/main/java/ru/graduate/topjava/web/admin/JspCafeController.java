@@ -3,6 +3,7 @@ package ru.graduate.topjava.web.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import ru.graduate.topjava.service.MealService;
 import ru.graduate.topjava.service.TimeService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -76,15 +78,33 @@ public class JspCafeController {
 
   @GetMapping("menu")
   public String cafeMenu(HttpServletRequest request, Model model) {
-    int id = getId(request);
+    HttpSession session = request.getSession();
+    Object sessionCafeId = session.getAttribute("cafeId");
+
+    int id = getIdVal(request);
+    if (id == 0) {
+      if (sessionCafeId instanceof Integer) {
+        id = (Integer)sessionCafeId;
+      }
+    }
+    session.setAttribute("cafeId", id);
     LocalDate localDate = timeService.getDateTime().toLocalDate();
     List<Meal> meals = mealService.getAll(id, localDate);
     model.addAttribute("meals", meals);
+    model.addAttribute("cafeId", id);
     return "menu";
   }
 
   private int getId(HttpServletRequest request) {
     String paramId = Objects.requireNonNull(request.getParameter("id"));
+    return Integer.parseInt(paramId);
+  }
+
+  private int getIdVal(HttpServletRequest request) {
+    String paramId = request.getParameter("id");
+    if (StringUtils.isEmpty(paramId))  {
+      return 0;
+    }
     return Integer.parseInt(paramId);
   }
 }

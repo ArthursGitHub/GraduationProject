@@ -11,14 +11,24 @@
     Меню выбранного кафе
     <hr>
 
-    <a href="/admin/cafe/meal/create?cafeId=${param.id}">Add menu</a>
+<c:choose>
+    <c:when test="${not empty param.id}">
+        <c:set var="cafeIdVar" value="${param.id}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="cafeIdVar" value="${cafeId}"/>
+    </c:otherwise>
+</c:choose>
+
+<c:if test="${not empty cafeIdVar}">
+
+    <a href="/admin/cafe/meal/create?cafeId=${cafeIdVar}">Add menu</a>
     <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <th>Menu</th>
             <th></th>
             <th></th>
         </tr>
@@ -28,13 +38,13 @@
             <tr>
                 <td>${meal.name}</td>
                 <td>${meal.price}</td>
-                <td><a href="/admin/cafe/menu?id=${meal.id}">menu</a></td>
-                <td><a href="/admin/cafe/update?id=${meal.id}">update</a></td>
-                <td><a href="/admin/cafe/delete?id=${meal.id}">delete</a></td>
+                <td><a href="/admin/cafe/meal/update?id=${meal.id}&cafeId=${cafeIdVar}">update</a></td>
+                <td><a href="/admin/cafe/meal/delete?id=${meal.id}&cafeId=${cafeIdVar}">delete</a></td>
             </tr>
         </c:forEach>
     </table>
 
+</c:if>
 </section>
 </body>
 </html>

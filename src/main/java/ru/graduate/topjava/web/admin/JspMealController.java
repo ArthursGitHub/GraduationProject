@@ -41,16 +41,18 @@ public class JspMealController {
   @GetMapping("update")
   public String updateMeal(HttpServletRequest request, Model model) {
     int id = getId(request);
-//    Meal meal = service.get(id);
-//    model.addAttribute("meal", meal);
-    return "mealForm";
+    int cafeId = getCafeId(request);
+    Meal meal = service.get(id, cafeId);
+    model.addAttribute("meal", meal);
+    return "menuForm";
   }
 
   @GetMapping("delete")
   public String deleteMeal(HttpServletRequest request, Model model) {
     int id = getId(request);
-//    service.delete(id);
-    return "redirect:/admin/meal";
+    int cafeId = getCafeId(request);
+    service.delete(id, cafeId);
+    return "redirect:/admin/cafe/menu";
   }
 
   @PostMapping()
@@ -79,6 +81,11 @@ public class JspMealController {
 
   private int getId(HttpServletRequest request) {
     String paramId = Objects.requireNonNull(request.getParameter("id"));
+    return Integer.parseInt(paramId);
+  }
+
+  private int getCafeId(HttpServletRequest request) {
+    String paramId = Objects.requireNonNull(request.getParameter("cafeId"));
     return Integer.parseInt(paramId);
   }
 }
