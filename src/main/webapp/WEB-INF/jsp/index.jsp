@@ -9,15 +9,15 @@
 <section>
     <form method="post" action="users">
         <spring:message code="app.login"/>: <select name="userId">
-        <option value="100000" selected>User</option>
-        <option value="100001">Admin</option>
+        <option value="100000" selected>Admin</option>
+        <option value="100001" >User</option>
     </select>
         <button type="submit"><spring:message code="common.select"/></button>
     </form>
-    <ul>
-        <li><a href="users"><spring:message code="user.title"/></a></li>
-        <li><a href="meals"><spring:message code="meal.title"/></a></li>
-    </ul>
+    <%--<ul>--%>
+        <%--<li><a href="users"><spring:message code="user.title"/></a></li>--%>
+        <%--<li><a href="meals"><spring:message code="meal.title"/></a></li>--%>
+    <%--</ul>--%>
 </section>
 <%--<jsp:include page="fragments/footer.jsp"/>--%>
 </body>
