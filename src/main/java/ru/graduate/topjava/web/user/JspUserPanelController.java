@@ -6,30 +6,35 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.graduate.topjava.model.Role;
-import ru.graduate.topjava.model.User;
-import ru.graduate.topjava.service.UserService;
+import ru.graduate.topjava.service.MenuService;
+import ru.graduate.topjava.service.TimeService;
+import ru.graduate.topjava.to.MenuWithCafe;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
+import java.time.LocalDate;
 
 @RequestMapping(value = "/user")
 @Controller
 public class JspUserPanelController {
 
   @Autowired
-  private UserService service;
+  private MenuService menuService;
+
+  @Autowired
+  private TimeService timeService;
 
   @GetMapping("")
   public String root(Model model) {
-    model.addAttribute("users", service.getAll());
+    LocalDate localDate = timeService.getDateTime().toLocalDate();
+    MenuWithCafe menu = menuService.getMenu(localDate);
+    model.addAttribute("menu", menu);
     return "user/userPanel";
   }
 
-
-
-  private int getId(HttpServletRequest request) {
-    String paramId = Objects.requireNonNull(request.getParameter("id"));
-    return Integer.parseInt(paramId);
+  @PostMapping("vote")
+  public String setVote(HttpServletRequest request) {
+    String cafeId = request.getParameter("cafeId");
+    System.out.println(cafeId);
+    return "index";
   }
 }
